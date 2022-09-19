@@ -44,6 +44,7 @@ def save():
                 with open("data.json", "r") as data_file:
                     # Reading old data
                     data = json.load(data_file)
+                    print(data)
 
             except FileNotFoundError:
                 with open("data.json", "w") as data_file:
@@ -52,6 +53,7 @@ def save():
             else:
                 # Check if website already exists and confirm
                 if website.lower() in data:
+                    print("Exists")
                     msg = f"A website with name {website} already exists. "
                     confirm = messagebox.askyesno(
                         title=website,
@@ -63,6 +65,11 @@ def save():
                         with open("data.json", "w") as data_file:
                             # Saving updated data
                             json.dump(data, data_file, indent=4)
+                else:
+                    data.update(new_data)
+                    with open("data.json", "w") as data_file:
+                        # Saving updated data
+                        json.dump(data, data_file, indent=4)
 
             finally:
                 website_entry.delete(0, tk.END)
@@ -123,7 +130,7 @@ website_entry.grid(column=1, row=1, sticky="EW")
 website_entry.focus()
 login_entry = tk.Entry()
 login_entry.grid(column=1, row=2, columnspan=2, sticky="EW")
-login_entry.insert(0, "alanctnk@gmail.com")
+login_entry.insert(0, "user@email.com")
 password_entry = tk.Entry()
 password_entry.grid(column=1, row=3, sticky="EW")
 
