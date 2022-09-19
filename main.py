@@ -50,11 +50,19 @@ def save():
                     json.dump(new_data, data_file, indent=4)
 
             else:
-                # Updating old data with new data
-                data.update(new_data)
-                with open("data.json", "w") as data_file:
-                    # Saving updated data
-                    json.dump(data, data_file, indent=4)
+                # Check if website already exists and confirm
+                if website.lower() in data:
+                    msg = f"A website with name {website} already exists. "
+                    confirm = messagebox.askyesno(
+                        title=website,
+                        message=msg + "Do you want to override it?",
+                    )
+                    if confirm:
+                        # Updating old data with new data
+                        data.update(new_data)
+                        with open("data.json", "w") as data_file:
+                            # Saving updated data
+                            json.dump(data, data_file, indent=4)
 
             finally:
                 website_entry.delete(0, tk.END)
@@ -78,9 +86,11 @@ def find_pwd():
             login = data[appname]["login"]
             password = data[appname]["password"]
 
+            pyperclip.copy(password)
+
             messagebox.showinfo(
                 title=website,
-                message=f"Login: {login}\nPassword: {password}",
+                message=f"Login: {login}\nPassword copied to clipboard",
             )
         else:
             messagebox.showinfo(
