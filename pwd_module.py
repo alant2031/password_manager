@@ -29,22 +29,21 @@ letters = [
     "z",
 ]
 numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-symbols = ["!", "#", "$", "%", "&", "(", ")", "*", "+", "@", "_", "/", "^"]
+symbols = ["!", "#", "$", "%", "&", "*", "+", "@", "_", "?", "^"]
 
 
 def generate():
+    qtd_letters = random.randint(4, 6)
+    qtd_symbols = random.randint(1, 2)
+    qtd_numbers = random.randint(1, 2)
 
-    nr_letters = random.randint(4, 6)
-    nr_symbols = random.randint(1, 2)
-    nr_numbers = random.randint(2, 3)
-
-    password_letters = [random.choice(letters) for _ in range(nr_letters)]
-    password_symbols = [random.choice(symbols) for _ in range(nr_symbols)]
-    password_numbers = [random.choice(numbers) for _ in range(nr_numbers)]
+    password_letters = [random.choice(letters) for _ in range(qtd_letters)]
+    password_symbols = [random.choice(symbols) for _ in range(qtd_symbols)]
+    password_numbers = [random.choice(numbers) for _ in range(qtd_numbers)]
 
     password_list = (
         password_letters + password_symbols + password_numbers + ["K"]
-    )
+    )  # noqa
 
     random.shuffle(password_list)
 
